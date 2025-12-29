@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>SaaS Dashboard - Empty State</title>
+
+    <!-- Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Config for Custom Colors -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                bg: "#F7F9FC",
+                primary: "#1F3C88",
+                primaryHover: "#162a60",
+                secondary: "#4D96FF",
+                text: "#2E2E2E",
+                border: "#E2E8F0",
+                accent: "#F0F5FF",
+                success: "#4CAF50",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            boxShadow: {
+              subtle: "0 4px 20px -2px rgba(0, 0, 0, 0.05)",
+              card: "0 2px 8px rgba(0, 0, 0, 0.04)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        color: #2e2e2e;
+        background-color: #f7f9fc;
+      }
+
+      .empty-state-pattern {
+        background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+
+      .hover-lift {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .hover-lift:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+          0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <!-- Top Navigation -->
+    <nav class="bg-white border-b border-brand-border h-16 sticky top-0 z-10">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <div class="flex justify-between items-center h-full">
+          <!-- Logo -->
+          <div class="flex items-center gap-2">
+            <div class="bg-brand-primary text-white p-1.5 rounded-lg">
+              <i data-lucide="layers" class="h-5 w-5"></i>
+            </div>
+            <span class="font-bold text-lg text-brand-text tracking-tight"
+              >PostFlow</span
+            >
+          </div>
+
+          <!-- Right Side Actions -->
+          <div class="flex items-center gap-4">
+            <button
+              class="p-2 text-gray-400 hover:text-brand-primary transition-colors relative"
+            >
+              <i data-lucide="bell" class="h-5 w-5"></i>
+              <span
+                class="absolute top-1.5 right-1.5 h-2 w-2 bg-red-500 rounded-full border-2 border-white"
+              ></span>
+            </button>
+            <div
+              class="h-8 w-8 rounded-full bg-brand-accent border border-brand-secondary text-brand-primary flex items-center justify-center text-xs font-bold cursor-pointer"
+            >
+              JD
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Welcome Header -->
+      <div class="mb-8">
+        <h1 class="text-2xl font-bold text-brand-text">Dashboard</h1>
+        <p class="text-gray-500 text-sm mt-1">
+          Welcome back, John. Here is what's happening today.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Main Empty State (Spans 2 columns on large screens) -->
+        <div
+          class="lg:col-span-2 bg-white rounded-xl shadow-card border border-brand-border p-8 sm:p-12 flex flex-col items-center justify-center text-center relative overflow-hidden empty-state-pattern"
+        >
+          <!-- Illustration Circle -->
+          <div
+            class="relative z-10 bg-white p-4 rounded-full shadow-subtle mb-6"
+          >
+            <div class="bg-brand-accent p-4 rounded-full">
+              <i
+                data-lucide="pen-tool"
+                class="h-10 w-10 text-brand-primary"
+              ></i>
+            </div>
+          </div>
+
+          <h2 class="relative z-10 text-xl font-bold text-brand-text mb-2">
+            Your feed is looking empty
+          </h2>
+          <p class="relative z-10 text-gray-500 max-w-md mb-8">
+            You haven't drafted any LinkedIn posts yet. Create your first post
+            to start building your professional presence.
+          </p>
+
+          <button
+            onclick="createNewPost()"
+            class="relative z-10 flex items-center gap-2 bg-brand-primary hover:bg-brand-primaryHover text-white px-6 py-3 rounded-lg font-medium transition-all shadow-lg shadow-brand-primary/20 hover:shadow-brand-primary/30 active:scale-95"
+          >
+            <i data-lucide="plus-circle" class="h-5 w-5"></i>
+            Create my first post
+          </button>
+
+          <!-- Decorative background elements -->
+          <div
+            class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-white/80 pointer-events-none"
+          ></div>
+        </div>
+
+        <!-- Sidebar Widgets -->
+        <div class="space-y-6">
+          <!-- Schedule Summary Widget -->
+          <div
+            class="bg-white rounded-xl shadow-card border border-brand-border p-6 hover-lift"
+          >
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="font-semibold text-brand-text flex items-center gap-2">
+                <i
+                  data-lucide="calendar-clock"
+                  class="h-4 w-4 text-brand-secondary"
+                ></i>
+                Your Schedule
+              </h3>
+              <button
+                class="text-xs text-brand-secondary hover:text-brand-primary font-medium"
+              >
+                Edit
+              </button>
+            </div>
+
+            <div
+              class="bg-brand-accent/30 rounded-lg p-4 border border-brand-accent"
+            >
+              <div class="flex items-start gap-3">
+                <div class="mt-0.5">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="h-4 w-4 text-brand-success"
+                  ></i>
+                </div>
+                <div>
+                  <p class="text-sm font-medium text-brand-text">Weekly Plan</p>
+                  <p class="text-xs text-gray-500 mt-1">Mon, Wed, Fri</p>
+                  <div class="flex items-center gap-1.5 mt-2">
+                    <i data-lucide="clock" class="h-3 w-3 text-gray-400"></i>
+                    <span class="text-xs text-gray-600 font-medium"
+                      >09:00 AM</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-gray-100">
+              <p class="text-xs text-gray-400">
+                Next reminder:
+                <span class="text-brand-text font-medium"
+                  >Wednesday at 9:00 AM</span
+                >
+              </p>
+            </div>
+          </div>
+
+          <!-- Quick Stats Placeholder -->
+          <div
+            class="bg-white rounded-xl shadow-card border border-brand-border p-6 hover-lift"
+          >
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="font-semibold text-brand-text flex items-center gap-2">
+                <i
+                  data-lucide="bar-chart-2"
+                  class="h-4 w-4 text-brand-secondary"
+                ></i>
+                Analytics
+              </h3>
+            </div>
+            <div
+              class="flex items-center justify-center h-24 bg-gray-50 rounded-lg border border-dashed border-gray-200"
+            >
+              <span class="text-xs text-gray-400">No data available yet</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Create Post Modal (Hidden by default) -->
+    <div
+      id="postModal"
+      class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300"
+    >
+      <div
+        class="bg-white rounded-xl shadow-2xl w-full max-w-lg transform scale-95 transition-transform duration-300"
+        id="modalContent"
+      >
+        <div
+          class="border-b border-gray-100 px-6 py-4 flex justify-between items-center"
+        >
+          <h3 class="font-semibold text-brand-text">New Post</h3>
+          <button
+            onclick="closeModal()"
+            class="text-gray-400 hover:text-gray-600"
+          >
+            <i data-lucide="x" class="h-5 w-5"></i>
+          </button>
+        </div>
+        <div class="p-6">
+          <textarea
+            class="w-full h-32 border border-brand-border rounded-lg p-3 text-sm focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none resize-none"
+            placeholder="What do you want to talk about?"
+          ></textarea>
+          <div class="mt-4 flex justify-between items-center">
+            <div class="flex gap-2">
+              <button
+                class="p-2 hover:bg-gray-100 rounded-lg text-gray-500 transition-colors"
+              >
+                <i data-lucide="image" class="h-4 w-4"></i>
+              </button>
+              <button
+                class="p-2 hover:bg-gray-100 rounded-lg text-gray-500 transition-colors"
+              >
+                <i data-lucide="smile" class="h-4 w-4"></i>
+              </button>
+            </div>
+            <button
+              onclick="savePost()"
+              class="bg-brand-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-brand-primaryHover transition-colors"
+            >
+              Save Draft
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div
+      id="toast"
+      class="fixed bottom-4 right-4 transform translate-y-20 opacity-0 transition-all duration-300 bg-gray-800 text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 z-50"
+    >
+      <i data-lucide="check-circle" class="h-5 w-5 text-green-400"></i>
+      <span id="toastMessage">Action successful</span>
+    </div>
+
+    <script>
+      // Initialize Icons
+      lucide.createIcons();
+
+      function createNewPost() {
+        const modal = document.getElementById("postModal");
+        const content = document.getElementById("modalContent");
+
+        modal.classList.remove("hidden");
+        // Small timeout to allow display:block to apply before opacity transition
+        setTimeout(() => {
+          modal.classList.remove("opacity-0");
+          content.classList.remove("scale-95");
+          content.classList.add("scale-100");
+        }, 10);
+      }
+
+      function closeModal() {
+        const modal = document.getElementById("postModal");
+        const content = document.getElementById("modalContent");
+
+        modal.classList.add("opacity-0");
+        content.classList.remove("scale-100");
+        content.classList.add("scale-95");
+
+        setTimeout(() => {
+          modal.classList.add("hidden");
+        }, 300);
+      }
+
+      function savePost() {
+        closeModal();
+
+        // Show toast
+        const toast = document.getElementById("toast");
+        const msg = document.getElementById("toastMessage");
+        msg.innerText = "Draft saved successfully!";
+
+        toast.classList.remove("translate-y-20", "opacity-0");
+        setTimeout(() => {
+          toast.classList.add("translate-y-20", "opacity-0");
+        }, 3000);
+      }
+
+      // Close modal on outside click
+      document
+        .getElementById("postModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeModal();
+          }
+        });
+    </script>
+  </body>
+</html>

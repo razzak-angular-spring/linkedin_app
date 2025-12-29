@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Post Scheduled Success</title>
+
+    <!-- Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Config for Custom Colors -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                bg: "#F7F9FC",
+                primary: "#1F3C88",
+                primaryHover: "#162a60",
+                secondary: "#4D96FF",
+                text: "#2E2E2E",
+                border: "#E2E8F0",
+                accent: "#F0F5FF",
+                success: "#4CAF50",
+                successBg: "#E8F5E9",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            boxShadow: {
+              subtle: "0 4px 20px -2px rgba(0, 0, 0, 0.05)",
+              card: "0 2px 8px rgba(0, 0, 0, 0.04)",
+              glow: "0 0 20px rgba(76, 175, 80, 0.15)",
+            },
+            animation: {
+              "scale-in": "scaleIn 0.5s ease-out forwards",
+              "fade-up": "fadeUp 0.5s ease-out 0.2s forwards opacity-0",
+            },
+            keyframes: {
+              scaleIn: {
+                "0%": { transform: "scale(0.8)", opacity: "0" },
+                "100%": { transform: "scale(1)", opacity: "1" },
+              },
+              fadeUp: {
+                "0%": { transform: "translateY(10px)", opacity: "0" },
+                "100%": { transform: "translateY(0)", opacity: "1" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        color: #2e2e2e;
+      }
+
+      /* Success animation circle */
+      .success-circle {
+        animation: pulse-green 2s infinite;
+      }
+
+      @keyframes pulse-green {
+        0% {
+          box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 15px rgba(76, 175, 80, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen flex items-center justify-center bg-white sm:bg-brand-bg sm:p-4"
+  >
+    <!-- Main Card Container -->
+    <div
+      class="w-full h-full sm:h-auto sm:max-w-[480px] bg-white sm:rounded-xl sm:shadow-subtle sm:border sm:border-gray-100 relative flex flex-col items-center justify-center p-8 sm:p-12 text-center animate-scale-in"
+    >
+      <!-- Success Icon -->
+      <div class="mb-8 relative">
+        <div
+          class="w-20 h-20 bg-brand-successBg rounded-full flex items-center justify-center success-circle mx-auto"
+        >
+          <i
+            data-lucide="check"
+            class="h-10 w-10 text-brand-success stroke-[3]"
+          ></i>
+        </div>
+        <!-- Decorative Confetti (Pure CSS shapes) -->
+        <div class="absolute -top-2 -right-4 text-yellow-400 opacity-60">
+          <i data-lucide="sparkle" class="h-4 w-4"></i>
+        </div>
+        <div class="absolute -bottom-1 -left-4 text-blue-400 opacity-60">
+          <i data-lucide="sparkle" class="h-3 w-3"></i>
+        </div>
+      </div>
+
+      <!-- Confirmation Text -->
+      <div class="mb-8 opacity-0 animate-[fadeUp_0.5s_ease-out_0.2s_forwards]">
+        <h1 class="text-2xl font-bold text-brand-text mb-2">
+          Post added to schedule!
+        </h1>
+        <p class="text-gray-500 text-sm leading-relaxed max-w-xs mx-auto">
+          Your post is locked in for
+          <span class="font-semibold text-brand-text"
+            >Wednesday, Oct 24 at 9:00 AM</span
+          >. We'll send you a reminder 15 minutes before.
+        </p>
+      </div>
+
+      <!-- Schedule Preview Card -->
+      <div
+        class="w-full bg-brand-bg rounded-lg p-4 mb-8 border border-brand-border text-left flex items-start gap-3 opacity-0 animate-[fadeUp_0.5s_ease-out_0.3s_forwards]"
+      >
+        <div
+          class="bg-white p-2 rounded border border-gray-100 shadow-sm flex-shrink-0"
+        >
+          <i data-lucide="file-text" class="h-5 w-5 text-brand-secondary"></i>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p
+            class="text-xs text-gray-400 font-medium uppercase tracking-wider mb-0.5"
+          >
+            Up Next
+          </p>
+          <p class="text-sm font-medium text-brand-text truncate">
+            Unpopular opinion: Growth is actually...
+          </p>
+        </div>
+        <div class="flex-shrink-0 self-center">
+          <span
+            class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
+            >Scheduled</span
+          >
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div
+        class="w-full space-y-3 opacity-0 animate-[fadeUp_0.5s_ease-out_0.4s_forwards]"
+      >
+        <!-- Create Another (Primary) -->
+        <button
+          onclick="window.location.reload()"
+          class="w-full flex items-center justify-center gap-2 py-3.5 px-4 border border-transparent rounded-xl shadow-sm text-sm font-semibold text-white bg-brand-primary hover:bg-brand-primaryHover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary transition-all active:scale-[0.98]"
+        >
+          <i data-lucide="plus" class="h-4 w-4"></i>
+          Create another post
+        </button>
+
+        <!-- View Calendar (Secondary) -->
+        <button
+          class="w-full flex items-center justify-center gap-2 py-3.5 px-4 border border-brand-border rounded-xl text-sm font-semibold text-brand-text bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 transition-all"
+        >
+          <i data-lucide="calendar" class="h-4 w-4 text-gray-500"></i>
+          View my calendar
+        </button>
+      </div>
+    </div>
+
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

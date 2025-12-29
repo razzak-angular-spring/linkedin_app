@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>SaaS Post Creator</title>
+
+    <!-- Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Config for Custom Colors -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                bg: "#F7F9FC",
+                primary: "#1F3C88",
+                primaryHover: "#162a60",
+                secondary: "#4D96FF",
+                text: "#2E2E2E",
+                border: "#E2E8F0",
+                accent: "#F0F5FF",
+                success: "#4CAF50",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            boxShadow: {
+              subtle: "0 4px 20px -2px rgba(0, 0, 0, 0.05)",
+              card: "0 2px 8px rgba(0, 0, 0, 0.04)",
+              floating: "0 10px 40px -10px rgba(0,0,0,0.1)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        color: #2e2e2e;
+        background-color: #f7f9fc;
+      }
+
+      /* Custom scrollbar for templates */
+      .custom-scroll::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scroll::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+
+      .template-card:hover {
+        border-color: #4d96ff;
+        background-color: #f0f5ff;
+      }
+
+      textarea {
+        field-sizing: content;
+        min-height: 300px;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col bg-brand-bg">
+    <!-- Top Navigation -->
+    <nav class="bg-white border-b border-brand-border h-16 sticky top-0 z-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <div class="flex justify-between items-center h-full">
+          <!-- Logo & Breadcrumb -->
+          <div class="flex items-center gap-4">
+            <div
+              class="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+            >
+              <div class="bg-brand-primary text-white p-1.5 rounded-lg">
+                <i data-lucide="layers" class="h-5 w-5"></i>
+              </div>
+              <span
+                class="font-bold text-lg text-brand-text tracking-tight hidden sm:block"
+                >PostFlow</span
+              >
+            </div>
+            <div class="h-6 w-px bg-gray-200 mx-2 hidden sm:block"></div>
+            <div class="flex items-center gap-2 text-sm text-gray-500">
+              <span class="hover:text-brand-primary cursor-pointer"
+                >Drafts</span
+              >
+              <i data-lucide="chevron-right" class="h-4 w-4"></i>
+              <span class="font-medium text-brand-text">New Post</span>
+            </div>
+          </div>
+
+          <!-- Right Side Actions -->
+          <div class="flex items-center gap-3">
+            <button
+              class="text-sm font-medium text-gray-500 hover:text-brand-text px-3 py-2"
+            >
+              Save Draft
+            </button>
+            <div
+              class="h-8 w-8 rounded-full bg-brand-accent border border-brand-secondary text-brand-primary flex items-center justify-center text-xs font-bold cursor-pointer"
+            >
+              JD
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main
+      class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 h-[calc(100vh-4rem)]"
+    >
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full pb-6">
+        <!-- Left Column: Writing Interface (8 cols) -->
+        <div class="lg:col-span-8 flex flex-col h-full">
+          <div
+            class="bg-white rounded-xl shadow-card border border-brand-border flex flex-col h-full relative overflow-hidden"
+          >
+            <!-- Formatting Toolbar -->
+            <div
+              class="border-b border-brand-border px-4 py-3 flex items-center justify-between bg-gray-50/50"
+            >
+              <div class="flex items-center gap-1 text-gray-500">
+                <button
+                  class="p-1.5 hover:bg-gray-200 rounded transition-colors"
+                  title="Bold"
+                >
+                  <i data-lucide="bold" class="h-4 w-4"></i>
+                </button>
+                <button
+                  class="p-1.5 hover:bg-gray-200 rounded transition-colors"
+                  title="Italic"
+                >
+                  <i data-lucide="italic" class="h-4 w-4"></i>
+                </button>
+                <div class="h-4 w-px bg-gray-300 mx-2"></div>
+                <button
+                  class="p-1.5 hover:bg-gray-200 rounded transition-colors"
+                  title="List"
+                >
+                  <i data-lucide="list" class="h-4 w-4"></i>
+                </button>
+                <button
+                  class="p-1.5 hover:bg-gray-200 rounded transition-colors"
+                  title="Link"
+                >
+                  <i data-lucide="link" class="h-4 w-4"></i>
+                </button>
+                <button
+                  class="p-1.5 hover:bg-gray-200 rounded transition-colors"
+                  title="Image"
+                >
+                  <i data-lucide="image" class="h-4 w-4"></i>
+                </button>
+              </div>
+
+              <!-- AI Button (Secondary) -->
+              <button
+                onclick="triggerAI()"
+                class="group flex items-center gap-1.5 text-xs font-medium text-brand-secondary bg-brand-accent/50 hover:bg-brand-accent px-3 py-1.5 rounded-full border border-brand-secondary/20 transition-all"
+              >
+                <i
+                  data-lucide="sparkles"
+                  class="h-3.5 w-3.5 transition-transform group-hover:scale-110"
+                ></i>
+                AI Assist
+              </button>
+            </div>
+
+            <!-- Writing Area -->
+            <div class="flex-1 overflow-y-auto custom-scroll p-6 relative">
+              <textarea
+                id="postContent"
+                class="w-full h-full resize-none outline-none text-lg text-brand-text placeholder-gray-300 bg-transparent font-normal leading-relaxed"
+                placeholder="What's on your mind? Start writing or choose a template..."
+              ></textarea>
+            </div>
+
+            <!-- Bottom Bar: Status & CTA -->
+            <div class="border-t border-brand-border p-4 bg-white z-10">
+              <div
+                class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+              >
+                <!-- Character Count & Limit Warning -->
+                <div
+                  class="flex items-center gap-4 text-xs text-gray-400 font-medium"
+                >
+                  <span id="charCount">0 / 3000 chars</span>
+                  <div
+                    class="h-1 w-24 bg-gray-100 rounded-full overflow-hidden"
+                  >
+                    <div
+                      id="charBar"
+                      class="h-full bg-brand-secondary w-0 transition-all duration-300"
+                    ></div>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-4 sm:justify-end">
+                  <!-- Scheduling Info -->
+                  <div class="flex flex-col items-end text-xs">
+                    <span class="text-gray-400">Scheduled for</span>
+                    <span
+                      class="text-brand-success font-medium flex items-center gap-1"
+                    >
+                      <i data-lucide="calendar-clock" class="h-3 w-3"></i>
+                      Wed, Oct 24 @ 9:00 AM
+                    </span>
+                  </div>
+
+                  <!-- Primary CTA -->
+                  <button
+                    onclick="schedulePost()"
+                    id="scheduleBtn"
+                    class="bg-brand-primary hover:bg-brand-primaryHover text-white px-5 py-2.5 rounded-lg text-sm font-semibold shadow-md shadow-brand-primary/20 hover:shadow-brand-primary/30 transition-all active:scale-[0.98] flex items-center gap-2 whitespace-nowrap"
+                  >
+                    <i data-lucide="calendar-plus" class="h-4 w-4"></i>
+                    Add to schedule
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Sidebar (4 cols) -->
+        <div class="lg:col-span-4 flex flex-col h-full gap-6">
+          <!-- Templates Panel -->
+          <div
+            class="bg-white rounded-xl shadow-card border border-brand-border flex-1 flex flex-col overflow-hidden max-h-[600px]"
+          >
+            <div class="p-4 border-b border-brand-border bg-gray-50/30">
+              <h3 class="font-semibold text-brand-text flex items-center gap-2">
+                <i
+                  data-lucide="layout-template"
+                  class="h-4 w-4 text-brand-secondary"
+                ></i>
+                Templates
+              </h3>
+            </div>
+
+            <div class="p-4 overflow-y-auto custom-scroll space-y-3">
+              <!-- Template 1 -->
+              <div
+                onclick="applyTemplate('hook')"
+                class="template-card cursor-pointer border border-gray-200 rounded-lg p-3 transition-colors bg-white group"
+              >
+                <div class="flex justify-between items-start mb-1">
+                  <span class="text-sm font-medium text-brand-text"
+                    >The Viral Hook</span
+                  >
+                  <i
+                    data-lucide="plus"
+                    class="h-4 w-4 text-gray-300 group-hover:text-brand-secondary"
+                  ></i>
+                </div>
+                <p class="text-xs text-gray-500 line-clamp-2">
+                  Start with a controversial statement, then back it up with 3
+                  facts.
+                </p>
+              </div>
+
+              <!-- Template 2 -->
+              <div
+                onclick="applyTemplate('story')"
+                class="template-card cursor-pointer border border-gray-200 rounded-lg p-3 transition-colors bg-white group"
+              >
+                <div class="flex justify-between items-start mb-1">
+                  <span class="text-sm font-medium text-brand-text"
+                    >Personal Story</span
+                  >
+                  <i
+                    data-lucide="plus"
+                    class="h-4 w-4 text-gray-300 group-hover:text-brand-secondary"
+                  ></i>
+                </div>
+                <p class="text-xs text-gray-500 line-clamp-2">
+                  "I used to think X, but then Y happened." A classic
+                  transformation arc.
+                </p>
+              </div>
+
+              <!-- Template 3 -->
+              <div
+                onclick="applyTemplate('list')"
+                class="template-card cursor-pointer border border-gray-200 rounded-lg p-3 transition-colors bg-white group"
+              >
+                <div class="flex justify-between items-start mb-1">
+                  <span class="text-sm font-medium text-brand-text"
+                    >Top 5 Listicle</span
+                  >
+                  <i
+                    data-lucide="plus"
+                    class="h-4 w-4 text-gray-300 group-hover:text-brand-secondary"
+                  ></i>
+                </div>
+                <p class="text-xs text-gray-500 line-clamp-2">
+                  5 tools/tips that changed my workflow this week.
+                </p>
+              </div>
+
+              <!-- Template 4 -->
+              <div
+                onclick="applyTemplate('promo')"
+                class="template-card cursor-pointer border border-gray-200 rounded-lg p-3 transition-colors bg-white group"
+              >
+                <div class="flex justify-between items-start mb-1">
+                  <span class="text-sm font-medium text-brand-text"
+                    >Soft Launch</span
+                  >
+                  <i
+                    data-lucide="plus"
+                    class="h-4 w-4 text-gray-300 group-hover:text-brand-secondary"
+                  ></i>
+                </div>
+                <p class="text-xs text-gray-500 line-clamp-2">
+                  Tease a new project without giving away all details.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tips / Helper Card (Optional filler for layout balance) -->
+          <div class="bg-blue-50 rounded-xl border border-blue-100 p-4">
+            <div class="flex items-start gap-3">
+              <i
+                data-lucide="lightbulb"
+                class="h-5 w-5 text-brand-secondary mt-0.5"
+              ></i>
+              <div>
+                <h4 class="text-sm font-semibold text-brand-primary">
+                  Pro Tip
+                </h4>
+                <p class="text-xs text-brand-text mt-1 leading-relaxed">
+                  Posts with 1-3 relevant hashtags perform 25% better. Avoid
+                  links in the first comment.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Success Toast -->
+    <div
+      id="toast"
+      class="fixed bottom-4 right-4 transform translate-y-20 opacity-0 transition-all duration-300 bg-gray-800 text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 z-50"
+    >
+      <i data-lucide="check-circle" class="h-5 w-5 text-green-400"></i>
+      <span id="toastMessage">Added to schedule for Wed @ 9:00 AM</span>
+    </div>
+
+    <!-- AI Loading Overlay (Hidden) -->
+    <div
+      id="aiOverlay"
+      class="absolute inset-0 bg-white/50 backdrop-blur-sm z-30 hidden flex items-center justify-center"
+    >
+      <div
+        class="bg-white p-4 rounded-xl shadow-floating border border-gray-100 flex items-center gap-3"
+      >
+        <div
+          class="animate-spin rounded-full h-5 w-5 border-b-2 border-brand-secondary"
+        ></div>
+        <span class="text-sm font-medium text-brand-text"
+          >Generating ideas...</span
+        >
+      </div>
+    </div>
+
+    <script>
+      lucide.createIcons();
+
+      const textarea = document.getElementById("postContent");
+      const charCount = document.getElementById("charCount");
+      const charBar = document.getElementById("charBar");
+
+      // Character Counter Logic
+      textarea.addEventListener("input", updateCharCount);
+
+      function updateCharCount() {
+        const current = textarea.value.length;
+        const max = 3000;
+        const percentage = Math.min((current / max) * 100, 100);
+
+        charCount.textContent = `${current} / ${max} chars`;
+        charBar.style.width = `${percentage}%`;
+
+        if (current > 2800) {
+          charBar.classList.remove("bg-brand-secondary");
+          charBar.classList.add("bg-red-500");
+          charCount.classList.add("text-red-500");
+        } else {
+          charBar.classList.add("bg-brand-secondary");
+          charBar.classList.remove("bg-red-500");
+          charCount.classList.remove("text-red-500");
+        }
+      }
+
+      // Template Logic
+      const templates = {
+        hook: "Unpopular opinion: [Insert Common Belief] is actually holding you back.\n\nHere is why:\n\n1. Reason one\n2. Reason two\n3. Reason three\n\nDo you agree?",
+        story:
+          "Two years ago, I was struggling with [Problem].\n\nI tried everything:\n- Solution A\n- Solution B\n\nNothing worked until I discovered [Insight].\n\nToday, things are different because...",
+        list: "5 tools I use every single day to [Goal]:\n\n1. Tool 1: For [Purpose]\n2. Tool 2: For [Purpose]\n3. Tool 3: For [Purpose]\n4. Tool 4: For [Purpose]\n5. Tool 5: For [Purpose]\n\nWhich one is your favorite?",
+        promo:
+          "Something big is coming... 🚀\n\nWe have been working secretly on a solution for [Pain Point].\n\nCan you guess what it is?\n\n#SaaS #Growth #Launch",
+      };
+
+      function applyTemplate(type) {
+        const text = templates[type];
+        // Simple append or replace logic. Let's append if empty, prompt if not?
+        // For demo, we just set value.
+        if (textarea.value.length > 0) {
+          if (!confirm("Replace current text with template?")) return;
+        }
+        textarea.value = text;
+        updateCharCount();
+        textarea.focus();
+      }
+
+      // AI Simulation
+      function triggerAI() {
+        const overlay = document.getElementById("aiOverlay");
+        // We need to position overlay over the textarea container specifically,
+        // but for simplicity in this full-page demo we might just show a toast or fake it.
+        // Let's create a visual effect on the button instead or use the overlay div if positioned correctly.
+        // Since overlay is absolute to body/main, let's just use button state.
+
+        const btn = document.querySelector('button[onclick="triggerAI()"]');
+        const originalHTML = btn.innerHTML;
+
+        btn.innerHTML =
+          '<i class="lucide-loader-2 h-3.5 w-3.5 animate-spin"></i> Writing...';
+        btn.disabled = true;
+
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+          btn.disabled = false;
+          lucide.createIcons();
+
+          if (textarea.value.trim() === "") {
+            textarea.value =
+              "Here is a draft generated by AI based on trending topics in your industry...\n\nConsistency is the key to success on LinkedIn, but engagement is the fuel.";
+            updateCharCount();
+          }
+        }, 1500);
+      }
+
+      // Schedule Action
+      function schedulePost() {
+        const btn = document.getElementById("scheduleBtn");
+        const toast = document.getElementById("toast");
+
+        if (textarea.value.trim().length === 0) {
+          alert("Please write something first!");
+          return;
+        }
+
+        // Loading state
+        const originalText = btn.innerHTML;
+        btn.innerHTML =
+          '<span class="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span> Scheduling...';
+        btn.disabled = true;
+
+        setTimeout(() => {
+          // Restore button
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+          lucide.createIcons();
+
+          // Show toast
+          toast.classList.remove("translate-y-20", "opacity-0");
+
+          setTimeout(() => {
+            toast.classList.add("translate-y-20", "opacity-0");
+            // Reset
+            textarea.value = "";
+            updateCharCount();
+          }, 3000);
+        }, 1500);
+      }
+    </script>
+  </body>
+</html>

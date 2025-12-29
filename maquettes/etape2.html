@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>SaaS Onboarding - Step 2</title>
+
+    <!-- Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Config for Custom Colors -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                bg: "#F7F9FC",
+                primary: "#1F3C88",
+                primaryHover: "#162a60",
+                secondary: "#4D96FF",
+                text: "#2E2E2E",
+                border: "#E2E8F0",
+                accent: "#F0F5FF",
+                success: "#4CAF50",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            boxShadow: {
+              subtle: "0 4px 20px -2px rgba(0, 0, 0, 0.05)",
+              card: "0 2px 8px rgba(0, 0, 0, 0.04)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        color: #2e2e2e;
+      }
+
+      .selection-card {
+        transition: all 0.2s ease-in-out;
+      }
+
+      /* Custom Time Input Styling */
+      input[type="time"]::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        filter: invert(0.5);
+      }
+
+      /* Smooth fade for conditional sections */
+      .fade-in {
+        animation: fadeIn 0.3s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen flex items-center justify-center bg-white sm:bg-brand-bg sm:p-4"
+  >
+    <!-- Main Card Container -->
+    <div
+      class="w-full h-full sm:h-auto sm:max-w-[520px] bg-white sm:rounded-lg sm:shadow-subtle sm:border sm:border-gray-100 relative flex flex-col"
+    >
+      <!-- Progress Bar -->
+      <div class="px-6 pt-6 sm:px-10 sm:pt-8">
+        <div
+          class="flex justify-between text-xs font-medium text-gray-400 mb-2 uppercase tracking-wide"
+        >
+          <span>Step 2 of 3</span>
+          <span>66%</span>
+        </div>
+        <div class="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+          <div
+            class="bg-brand-primary h-full w-2/3 rounded-full transition-all duration-500 ease-out"
+          ></div>
+        </div>
+      </div>
+
+      <!-- Content Area -->
+      <div
+        class="p-6 sm:p-10 flex-1 flex flex-col overflow-y-auto custom-scroll"
+      >
+        <!-- Header -->
+        <div class="mb-6 text-center sm:text-left">
+          <h1 class="text-2xl font-bold text-brand-text mb-2">
+            Set your posting schedule
+          </h1>
+          <p class="text-gray-500 text-sm">
+            Consistency is key. Choose when you want to be reminded to post on
+            LinkedIn.
+          </p>
+        </div>
+
+        <!-- Configuration Form -->
+        <div class="space-y-6">
+          <!-- Frequency Selector -->
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-3"
+              >How often do you want to post?</label
+            >
+            <div class="grid grid-cols-3 gap-3">
+              <button
+                onclick="selectFrequency(this, 'daily')"
+                class="freq-option selection-card flex flex-col items-center justify-center p-3 border-2 border-gray-100 rounded-lg hover:border-brand-primary/30 hover:bg-brand-accent/30 bg-white focus:outline-none"
+              >
+                <i data-lucide="zap" class="h-5 w-5 mb-2 text-gray-400"></i>
+                <span class="text-xs font-medium text-gray-600">Daily</span>
+              </button>
+              <button
+                onclick="selectFrequency(this, 'weekly')"
+                class="freq-option selection-card flex flex-col items-center justify-center p-3 border-2 border-brand-primary bg-brand-accent/20 rounded-lg relative focus:outline-none"
+              >
+                <i
+                  data-lucide="calendar-days"
+                  class="h-5 w-5 mb-2 text-brand-primary"
+                ></i>
+                <span class="text-xs font-medium text-brand-primary"
+                  >Weekly</span
+                >
+                <div
+                  class="absolute top-1 right-1 w-2 h-2 bg-brand-primary rounded-full"
+                ></div>
+              </button>
+              <button
+                onclick="selectFrequency(this, 'monthly')"
+                class="freq-option selection-card flex flex-col items-center justify-center p-3 border-2 border-gray-100 rounded-lg hover:border-brand-primary/30 hover:bg-brand-accent/30 bg-white focus:outline-none"
+              >
+                <i
+                  data-lucide="calendar"
+                  class="h-5 w-5 mb-2 text-gray-400"
+                ></i>
+                <span class="text-xs font-medium text-gray-600">Monthly</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Conditional: Day Selector (Visible for Weekly) -->
+          <div id="weeklyConfig" class="fade-in">
+            <label class="block text-sm font-semibold text-gray-700 mb-3"
+              >Select active days</label
+            >
+            <div class="flex justify-between gap-1 sm:gap-2">
+              <button
+                onclick="toggleDay(this)"
+                class="day-btn w-10 h-10 rounded-full border border-gray-200 text-xs font-medium text-gray-500 hover:border-brand-primary hover:text-brand-primary focus:outline-none flex items-center justify-center transition-colors"
+              >
+                M
+              </button>
+              <button
+                onclick="toggleDay(this)"
+                class="day-btn w-10 h-10 rounded-full border border-brand-primary bg-brand-primary text-xs font-medium text-white shadow-sm focus:outline-none flex items-center justify-center transition-colors"
+              >
+                T
+              </button>
+              <button
+                onclick="toggleDay(this)"
+                class="day-btn w-10 h-10 rounded-full border border-gray-200 text-xs font-medium text-gray-500 hover:border-brand-primary hover:text-brand-primary focus:outline-none flex items-center justify-center transition-colors"
+              >
+                W
+              </button>
+              <button
+                onclick="toggleDay(this)"
+                class="day-btn w-10 h-10 rounded-full border border-brand-primary bg-brand-primary text-xs font-medium text-white shadow-sm focus:outline-none flex items-center justify-center transition-colors"
+              >
+                T
+              </button>
+              <button
+                onclick="toggleDay(this)"
+                class="day-btn w-10 h-10 rounded-full border border-gray-200 text-xs font-medium text-gray-500 hover:border-brand-primary hover:text-brand-primary focus:outline-none flex items-center justify-center transition-colors"
+              >
+                F
+              </button>
+              <button
+                onclick="toggleDay(this)"
+                class="day-btn w-10 h-10 rounded-full border border-gray-200 text-xs font-medium text-gray-400 hover:border-brand-primary hover:text-brand-primary focus:outline-none flex items-center justify-center transition-colors"
+              >
+                S
+              </button>
+              <button
+                onclick="toggleDay(this)"
+                class="day-btn w-10 h-10 rounded-full border border-gray-200 text-xs font-medium text-gray-400 hover:border-brand-primary hover:text-brand-primary focus:outline-none flex items-center justify-center transition-colors"
+              >
+                S
+              </button>
+            </div>
+          </div>
+
+          <!-- Time Picker -->
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2"
+              >Preferred posting time</label
+            >
+            <div class="relative max-w-[200px]">
+              <div
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+              >
+                <i data-lucide="clock" class="h-4 w-4 text-gray-400"></i>
+              </div>
+              <input
+                type="time"
+                value="09:00"
+                class="block w-full pl-10 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-colors"
+              />
+            </div>
+          </div>
+
+          <!-- Notification Preferences -->
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-3"
+              >Notifications</label
+            >
+            <div class="space-y-3">
+              <label class="flex items-center cursor-pointer group">
+                <div class="relative flex items-center">
+                  <input
+                    type="checkbox"
+                    checked
+                    class="peer h-4 w-4 text-brand-primary border-gray-300 rounded focus:ring-brand-primary cursor-pointer transition-all"
+                  />
+                  <span
+                    class="ml-3 text-sm text-gray-600 group-hover:text-gray-900"
+                    >Send me email reminders</span
+                  >
+                </div>
+              </label>
+              <label class="flex items-center cursor-pointer group">
+                <div class="relative flex items-center">
+                  <input
+                    type="checkbox"
+                    class="peer h-4 w-4 text-brand-primary border-gray-300 rounded focus:ring-brand-primary cursor-pointer transition-all"
+                  />
+                  <span
+                    class="ml-3 text-sm text-gray-600 group-hover:text-gray-900"
+                    >Enable push notifications</span
+                  >
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Info Alert -->
+          <div
+            class="bg-blue-50 border border-blue-100 rounded-lg p-4 flex gap-3"
+          >
+            <i
+              data-lucide="info"
+              class="h-5 w-5 text-brand-secondary flex-shrink-0 mt-0.5"
+            ></i>
+            <div class="text-xs text-brand-text leading-relaxed">
+              <strong class="font-semibold block mb-0.5"
+                >Note on Auto-publishing</strong
+              >
+              We cannot auto-publish to your personal profile due to LinkedIn's
+              API policies. We will send you a notification at your scheduled
+              time with a 1-click publish link.
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Actions -->
+        <div class="mt-8 flex flex-col gap-3">
+          <button
+            id="saveBtn"
+            onclick="handleSave()"
+            class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-sm text-sm font-semibold text-white bg-brand-primary hover:bg-brand-primaryHover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary transition-all"
+          >
+            Save my schedule
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div
+      id="toast"
+      class="fixed top-4 sm:top-auto sm:bottom-4 right-4 left-4 sm:left-auto transform -translate-y-20 sm:translate-y-20 opacity-0 transition-all duration-300 bg-gray-800 text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 z-50"
+    >
+      <i data-lucide="check" class="h-5 w-5 text-green-400"></i>
+      <span id="toastMessage">Schedule saved!</span>
+    </div>
+
+    <script>
+      // Initialize Icons
+      lucide.createIcons();
+
+      function selectFrequency(element, freq) {
+        // Reset all cards
+        document.querySelectorAll(".freq-option").forEach((btn) => {
+          btn.className =
+            "freq-option selection-card flex flex-col items-center justify-center p-3 border-2 border-gray-100 rounded-lg hover:border-brand-primary/30 hover:bg-brand-accent/30 bg-white focus:outline-none";
+
+          // Reset Icon color
+          const icon = btn.querySelector("svg");
+          if (icon)
+            icon.classList.replace("text-brand-primary", "text-gray-400");
+
+          // Reset Text color
+          const text = btn.querySelector("span");
+          if (text) {
+            text.classList.remove("text-brand-primary");
+            text.classList.add("text-gray-600");
+          }
+
+          // Remove indicator dot if exists
+          const dot = btn.querySelector(".absolute");
+          if (dot) dot.remove();
+        });
+
+        // Activate clicked card
+        element.className =
+          "freq-option selection-card flex flex-col items-center justify-center p-3 border-2 border-brand-primary bg-brand-accent/20 rounded-lg relative focus:outline-none";
+
+        // Set Icon color
+        const activeIcon = element.querySelector("svg");
+        if (activeIcon)
+          activeIcon.classList.replace("text-gray-400", "text-brand-primary");
+
+        // Set Text color
+        const activeText = element.querySelector("span");
+        if (activeText) {
+          activeText.classList.remove("text-gray-600");
+          activeText.classList.add("text-brand-primary");
+        }
+
+        // Add Indicator dot
+        const dot = document.createElement("div");
+        dot.className =
+          "absolute top-1 right-1 w-2 h-2 bg-brand-primary rounded-full";
+        element.appendChild(dot);
+
+        // Toggle Day Selector Visibility
+        const weeklyConfig = document.getElementById("weeklyConfig");
+        if (freq === "weekly") {
+          weeklyConfig.style.display = "block";
+          weeklyConfig.classList.add("fade-in");
+        } else {
+          weeklyConfig.style.display = "none";
+        }
+      }
+
+      function toggleDay(btn) {
+        const isSelected = btn.classList.contains("bg-brand-primary");
+
+        if (isSelected) {
+          // Deselect
+          btn.className =
+            "day-btn w-10 h-10 rounded-full border border-gray-200 text-xs font-medium text-gray-500 hover:border-brand-primary hover:text-brand-primary focus:outline-none flex items-center justify-center transition-colors";
+        } else {
+          // Select
+          btn.className =
+            "day-btn w-10 h-10 rounded-full border border-brand-primary bg-brand-primary text-xs font-medium text-white shadow-sm focus:outline-none flex items-center justify-center transition-colors";
+        }
+      }
+
+      function handleSave() {
+        const btn = document.getElementById("saveBtn");
+        const originalText = btn.innerText;
+
+        // Loading State
+        btn.innerHTML =
+          '<span class="animate-spin inline-block mr-2 border-2 border-white border-t-transparent rounded-full w-4 h-4"></span> Saving...';
+        btn.disabled = true;
+        btn.classList.add("opacity-75");
+
+        // Simulate API call
+        setTimeout(() => {
+          // Success Toast
+          const toast = document.getElementById("toast");
+          toast.classList.remove(
+            "-translate-y-20",
+            "sm:translate-y-20",
+            "opacity-0"
+          );
+
+          btn.innerText = "Saved";
+
+          setTimeout(() => {
+            // Reset or Redirect logic would go here
+            toast.classList.add(
+              "-translate-y-20",
+              "sm:translate-y-20",
+              "opacity-0"
+            );
+            btn.innerText = originalText;
+            btn.disabled = false;
+            btn.classList.remove("opacity-75");
+          }, 2000);
+        }, 1000);
+      }
+    </script>
+  </body>
+</html>

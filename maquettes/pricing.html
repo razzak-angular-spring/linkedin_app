@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>SaaS Pricing</title>
+
+    <!-- Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Config for Custom Colors -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                bg: "#F7F9FC",
+                primary: "#1F3C88",
+                primaryHover: "#162a60",
+                secondary: "#4D96FF",
+                text: "#2E2E2E",
+                border: "#E2E8F0",
+                accent: "#F0F5FF",
+                success: "#4CAF50",
+                successBg: "#E8F5E9",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            boxShadow: {
+              subtle: "0 4px 20px -2px rgba(0, 0, 0, 0.05)",
+              card: "0 2px 8px rgba(0, 0, 0, 0.04)",
+              glow: "0 0 20px rgba(31, 60, 136, 0.15)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        color: #2e2e2e;
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen flex items-center justify-center bg-white sm:bg-brand-bg sm:p-4"
+  >
+    <!-- Main Card Container -->
+    <div
+      class="w-full h-full sm:h-auto sm:max-w-[420px] bg-white sm:rounded-xl sm:shadow-subtle sm:border sm:border-gray-100 relative flex flex-col p-6 sm:p-10 transition-all"
+    >
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-2xl font-bold text-brand-text tracking-tight">
+          Simple, transparent pricing
+        </h1>
+        <p class="text-gray-500 text-sm mt-2">
+          Everything you need to grow your professional presence on LinkedIn.
+        </p>
+      </div>
+
+      <!-- Pricing Display -->
+      <div
+        class="flex items-end justify-center gap-1 mb-8 pb-8 border-b border-gray-100"
+      >
+        <span class="text-5xl font-bold text-brand-text tracking-tight"
+          >15€</span
+        >
+        <span class="text-gray-500 font-medium mb-1.5 text-lg">/month</span>
+      </div>
+
+      <!-- Features List -->
+      <div class="space-y-4 mb-8">
+        <div class="flex items-start gap-3">
+          <div
+            class="flex-shrink-0 mt-0.5 text-brand-success bg-brand-successBg rounded-full p-0.5"
+          >
+            <i data-lucide="check" class="h-3.5 w-3.5 stroke-[3]"></i>
+          </div>
+          <span class="text-sm text-gray-600">Unlimited post scheduling</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <div
+            class="flex-shrink-0 mt-0.5 text-brand-success bg-brand-successBg rounded-full p-0.5"
+          >
+            <i data-lucide="check" class="h-3.5 w-3.5 stroke-[3]"></i>
+          </div>
+          <span class="text-sm text-gray-600">AI writing assistant</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <div
+            class="flex-shrink-0 mt-0.5 text-brand-success bg-brand-successBg rounded-full p-0.5"
+          >
+            <i data-lucide="check" class="h-3.5 w-3.5 stroke-[3]"></i>
+          </div>
+          <span class="text-sm text-gray-600"
+            >Advanced analytics & insights</span
+          >
+        </div>
+        <div class="flex items-start gap-3">
+          <div
+            class="flex-shrink-0 mt-0.5 text-brand-success bg-brand-successBg rounded-full p-0.5"
+          >
+            <i data-lucide="check" class="h-3.5 w-3.5 stroke-[3]"></i>
+          </div>
+          <span class="text-sm text-gray-600">Visual content calendar</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <div
+            class="flex-shrink-0 mt-0.5 text-brand-success bg-brand-successBg rounded-full p-0.5"
+          >
+            <i data-lucide="check" class="h-3.5 w-3.5 stroke-[3]"></i>
+          </div>
+          <span class="text-sm text-gray-600">Post templates library</span>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <button
+        class="w-full py-3.5 px-4 mb-4 border border-transparent rounded-xl shadow-glow text-sm font-semibold text-white bg-brand-primary hover:bg-brand-primaryHover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary transition-all active:scale-[0.98]"
+      >
+        Start 14-day free trial
+      </button>
+
+      <!-- Reassurance -->
+      <div
+        class="flex items-center justify-center gap-1.5 text-xs text-gray-400"
+      >
+        <i data-lucide="shield-check" class="h-3.5 w-3.5"></i>
+        <span>Cancel anytime. No credit card required.</span>
+      </div>
+    </div>
+
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
